@@ -2,6 +2,7 @@ package org.example.demo2.controller;
 
 import org.example.demo2.model.Customer;
 import org.example.demo2.model.service.CustomerService;
+import org.example.demo2.model.service.ICustomerService;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @WebServlet(name = "customerController", urlPatterns = "/customers")
 public class CustomerController extends HttpServlet {
+    static ICustomerService customerService = new CustomerService();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String action = req.getParameter("action");
@@ -44,7 +46,6 @@ public class CustomerController extends HttpServlet {
 //        dieu huong sang file jsp
         RequestDispatcher dispatcher = req.getRequestDispatcher("customerlist.jsp");
 //        lay du lieu
-        CustomerService customerService = new CustomerService();
         List<Customer> c = customerService.findAll();
         //        gan lai du lieu cho view
         req.setAttribute("kh", c);
@@ -69,8 +70,8 @@ public class CustomerController extends HttpServlet {
         String dob = req.getParameter("dateOfBirth");
         String add = req.getParameter("address");
         Customer customer = new Customer(name, dob, add);
-        CustomerService c = new CustomerService();
-        c.save(customer);
+//        CustomerService c = new CustomerService();
+        customerService.save(customer);
         try {
             resp.sendRedirect("/customers");
         } catch (IOException e) {
