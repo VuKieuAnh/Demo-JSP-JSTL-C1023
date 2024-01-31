@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="org.example.demo2.Customer" %>
+<%@ page import="org.example.demo2.model.Customer" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@taglib prefix="ka" uri="http://java.sun.com/jsp/jstl/core" %>

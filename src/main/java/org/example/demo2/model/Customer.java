@@ -1,4 +1,4 @@
-package org.example.demo2;
+package org.example.demo2.model;
 
 public class Customer {
     private String name;
