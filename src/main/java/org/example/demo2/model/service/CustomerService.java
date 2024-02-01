@@ -22,4 +22,9 @@ public class CustomerService implements ICustomerService {
     public void save(Customer customer){
         customerMap.put(customerMap.size()+1, customer);
     }
+
+    @Override
+    public List<Customer> findByName(String name) {
+        return null;
+    }
 }

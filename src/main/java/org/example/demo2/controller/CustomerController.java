@@ -2,6 +2,7 @@ package org.example.demo2.controller;
 
 import org.example.demo2.model.Customer;
 import org.example.demo2.model.service.CustomerService;
+import org.example.demo2.model.service.CustomerServiceJDBC;
 import org.example.demo2.model.service.ICustomerService;
 
 import javax.servlet.RequestDispatcher;
@@ -15,9 +16,10 @@ import java.util.List;
 
 @WebServlet(name = "customerController", urlPatterns = "/customers")
 public class CustomerController extends HttpServlet {
-    static ICustomerService customerService = new CustomerService();
+    static ICustomerService customerService = new CustomerServiceJDBC();
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+//        customerService.getConnection();
         String action = req.getParameter("action");
         action = action==null?"":action;
         switch (action){
@@ -62,7 +64,25 @@ public class CustomerController extends HttpServlet {
             case "create":
                 createNewCustomer(req, resp);
                 break;
+            case "find":
+                showFindByName(req, resp);
         }
+    }
+
+    private void showFindByName(HttpServletRequest req, HttpServletResponse resp) {
+        System.out.println("find By name");
+        String name = req.getParameter("name");
+        List<Customer> customerList = customerService.findByName(name);
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/customerlist.jsp");
+        req.setAttribute("kh", customerList);
+        try {
+            requestDispatcher.forward(req, resp);
+        } catch (ServletException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private void createNewCustomer(HttpServletRequest req, HttpServletResponse resp) {

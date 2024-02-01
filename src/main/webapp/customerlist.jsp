@@ -12,7 +12,14 @@
     <title>Title</title>
 </head>
 <body>
+<form action="/customers" method="post">
+  <input name="action" value="find" hidden="">
+  <input name="name">
+  <button type="submit">Tim kiem</button>
+</form>
+
 <h1>Danh sach khach hang</h1>
+
 <table border="1px">
   <tr>
     <td>Ten</td>
